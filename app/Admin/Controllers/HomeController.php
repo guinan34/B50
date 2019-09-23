@@ -20,21 +20,21 @@ class HomeController extends Controller
             $content->description('后台数据管理');
 
             
-            $content->row(Dashboard::title());
-            $content->row(function (Row $row) {
+            // $content->row(Dashboard::title());
+            // $content->row(function (Row $row) {
 
-                // $row->column(16, function (Column $column) {
-                //     $column->append(Dashboard::showProject());
-                // });
+            //     // $row->column(16, function (Column $column) {
+            //     //     $column->append(Dashboard::showProject());
+            //     // });
 
-                // $row->column(4, function (Column $column) {
-                //     $column->append(Dashboard::extensions());
-                // });
+            //     // $row->column(4, function (Column $column) {
+            //     //     $column->append(Dashboard::extensions());
+            //     // });
 
-                // $row->column(4, function (Column $column) {
-                //     $column->append(Dashboard::dependencies());
-                // });
-             });
+            //     // $row->column(4, function (Column $column) {
+            //     //     $column->append(Dashboard::dependencies());
+            //     // });
+            //  });
 
         return $content;
 
