@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\fanclub;
+use App\groupMember;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class fanclubCtl extends AdminController
+class groupMemberCtl extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = '应援会管理';
+    protected $title = '成员管理';
 
     /**
      * Make a grid builder.
@@ -24,13 +24,21 @@ class fanclubCtl extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new fanclub);
+        $grid = new Grid(new groupMember);
 
         $grid->column('id', __('ID'));
-        $grid->column('fanclub', __('应援会'));
-        $grid->column('member', __('成员'));
+        $grid->column('member', __('成员'))->sortable();
+        $grid->column('theater', __('组合'))->sortable();
+        $grid->column('team', __('队伍'))->sortable();
         // $grid->column('created_at', __('Created at'));
         // $grid->column('updated_at', __('Updated at'));
+        $grid->filter(function($filter){
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+            // 在这里添加字段过滤器
+            $filter->like('theater', '所属组合');
+        });
+
         $grid->actions(function ($actions) {
             // // 去掉删除
             // $actions->disableDelete();
@@ -39,8 +47,6 @@ class fanclubCtl extends AdminController
             // 去掉查看
             $actions->disableView();
         });
-        $grid->quickSearch('fanclub','member');
-
         return $grid;
     }
 
@@ -52,11 +58,12 @@ class fanclubCtl extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(fanclub::findOrFail($id));
+        $show = new Show(groupMember::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('fanclub', __('Fanclub'));
         $show->field('member', __('Member'));
+        $show->field('theater', __('Theater'));
+        $show->field('team', __('Team'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -70,10 +77,11 @@ class fanclubCtl extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new fanclub);
+        $form = new Form(new groupMember);
 
-        $form->text('fanclub', __('应援会'))->rules('required|unique:fanclubs');
-        $form->text('member', __('成员'))->rules('required');
+        $form->text('member', __('成员'));
+        $form->select('theater','组合')->options(['BEJ48' => 'BEJ48', 'SNH48' => 'SNH48', 'GNZ48' => 'GNZ48']);
+        $form->text('team', __('队伍'));
 
         return $form;
     }

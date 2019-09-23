@@ -15,9 +15,12 @@ Route::group([
     $router->resource('projects', projectCtl::class);
     $router->resource('fanclubs', fanclubCtl::class);
     $router->resource('obsoletes', obsoleteCtl::class);
+    $router->resource('group-members', groupMemberCtl::class);
 
+    
     $router->get('songList', 'projectCtl@songList');
     $router->get('fanclubList', 'projectCtl@fanclubList');
     $router->get('memberList', 'songCtl@memberList');
+
 
 });

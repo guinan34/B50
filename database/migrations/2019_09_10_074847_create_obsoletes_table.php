@@ -19,6 +19,9 @@ class CreateObsoletesTable extends Migration
             $table->integer('project_id')->nullable()->comment('集资项目名称');
             $table->string('platform')->nullable()->comment('平台，取值范围：摩点、oWhat、其他');
             $table->string('fanclub')->comment('应援会');
+            
+            $table->datetime('start_time');
+            $table->datetime('end_time');
             $table->timestamps();
         });
     }

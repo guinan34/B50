@@ -15,6 +15,9 @@ class CreateGroupMembersTable extends Migration
     {
         Schema::create('group_members', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('member')->comment('成员名称');
+            $table->string('theater')->comment('组合');
+            $table->string('team')->comment('队伍');
             $table->timestamps();
         });
     }

@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+$router->get('indexList', 'indexCtl@indexList');
+$router->get('detailList', 'indexCtl@detailList');
+
+
+

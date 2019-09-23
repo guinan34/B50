@@ -23,17 +23,17 @@ class HomeController extends Controller
             $content->row(Dashboard::title());
             $content->row(function (Row $row) {
 
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::showProject());
-                });
+                // $row->column(16, function (Column $column) {
+                //     $column->append(Dashboard::showProject());
+                // });
 
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::extensions());
-                });
+                // $row->column(4, function (Column $column) {
+                //     $column->append(Dashboard::extensions());
+                // });
 
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::dependencies());
-                });
+                // $row->column(4, function (Column $column) {
+                //     $column->append(Dashboard::dependencies());
+                // });
              });
 
         return $content;
