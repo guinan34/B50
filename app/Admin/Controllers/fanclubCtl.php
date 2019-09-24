@@ -29,6 +29,9 @@ class fanclubCtl extends AdminController
         $grid->column('id', __('ID'));
         $grid->column('fanclub', __('应援会'));
         $grid->column('member', __('成员'));
+        $grid->column('modian_id', __('摩点id'));
+        $grid->column('owhat_id', __('owhat Id'));
+
         // $grid->column('created_at', __('Created at'));
         // $grid->column('updated_at', __('Updated at'));
         $grid->actions(function ($actions) {
@@ -39,6 +42,11 @@ class fanclubCtl extends AdminController
             // 去掉查看
             $actions->disableView();
         });
+        $states = [
+            'on'  => ['value' => 1, 'text' => '启用', 'color' => 'success'],
+            'off' => ['value' => 0, 'text' => '废弃', 'color' => 'danger'],
+        ];
+        $grid->column('active','应援会状态')->switch($states)->sortable();
         $grid->quickSearch('fanclub','member');
 
         return $grid;
@@ -73,7 +81,14 @@ class fanclubCtl extends AdminController
         $form = new Form(new fanclub);
 
         $form->text('fanclub', __('应援会'))->rules('required|unique:fanclubs');
+        $form->text('modian_id', __('摩点id'));
+        $form->text('owhat_id', __('owhat Id'));
         $form->text('member', __('成员'))->rules('required');
+        $states = [
+            'on'  => ['value' => 1, 'text' => '启用', 'color' => 'primary'],
+            'off' => ['value' => 0, 'text' => '废弃', 'color' => 'default'],
+        ];
+        $form->switch('active','应援会状态')->states($states);
 
         return $form;
     }
