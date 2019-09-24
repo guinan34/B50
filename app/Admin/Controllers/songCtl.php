@@ -104,19 +104,20 @@ class songCtl extends AdminController
     {
         $form = new Form(new song);
 
-        $form->text('song', __('曲目'))->rules('required|unique:songs');
-        $form->multipleSelect('actress','演员')->options('/admin/memberList')->rules('required');
+        $form->text('song', __('曲目'))->rules('required|unique:songs,id');
+        $form->multipleSelect('actress','演员')->options(groupMember::pluck('member as text','id'))->rules('required');
+
         $form->select('type', '选择类型')->options(['队歌' => '队歌', 'Unit' => 'Unit', 'Solo' => 'Solo'])->rules('required');
         
         return $form;
     }
 
-    public function memberList()
-    {
-        $memberList=groupMember::select('id','member as text')->get();
-        return $memberList;
-        //print_r($songList);
-    }
+    // public function memberList()
+    // {
+    //     $memberList=groupMember::select('id','member as text')->get();
+    //     return $memberList;
+    //     //print_r($songList);
+    // }
 
 
 }

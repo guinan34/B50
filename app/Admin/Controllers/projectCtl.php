@@ -96,14 +96,14 @@ class projectCtl extends AdminController
     protected function form()
     {
         $form = new Form(new project);
-        $form->number('project_id', __('项目ID'));
+        $form->number('project_id', __('项目ID'))->placeholder('摩点/Owhat必填');
         $form->text('project_name', __('项目名称'))->rules('required');
         $form->datetime('start_time',__('开始时间'));
         $form->datetime('end_time',__('结束时间'));
         $form->select('platform','平台')->options(['摩点' => '摩点', 'Owhat' => 'Owhat', '其他' => '其他'])->rules('required');
         $form->select('song_id','歌曲')->options('/admin/songList')->rules('required');
         $form->select('fanclub_id','所属应援会')->options('/admin/fanclubList')->rules('required'); 
-        $form->decimal('amount', __('金额'))->rules('required');
+        // $form->decimal('amount', __('金额'))->rules('required');
         //$form->select('is_obsolete','是否废弃')->options(['1' => '废弃', '0' => '启用']);
         $states = [
             'on'  => ['value' => 0, 'text' => '启用', 'color' => 'primary'],

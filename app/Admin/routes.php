@@ -20,7 +20,7 @@ Route::group([
     
     $router->get('songList', 'projectCtl@songList');
     $router->get('fanclubList', 'projectCtl@fanclubList');
-    $router->get('memberList', 'songCtl@memberList');
+    // $router->get('memberList', 'songCtl@memberList');
 
 
 });

@@ -18,7 +18,6 @@ class HomeController extends Controller
     {
             $content->title('饺子榜-B50');
             $content->description('后台数据管理');
-
             
             // $content->row(Dashboard::title());
             // $content->row(function (Row $row) {
