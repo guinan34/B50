@@ -104,7 +104,7 @@ class projectCtl extends AdminController
 
         $form->select('song_id','歌曲')->options('/admin/songList')->rules('required');
         $form->select('fanclub_id','所属应援会')->options('/admin/fanclubList')->rules('required'); 
-        // $form->decimal('amount', __('金额'))->rules('required');
+        $form->decimal('amount', __('金额'))->rules('required');
         //$form->select('is_obsolete','是否废弃')->options(['1' => '废弃', '0' => '启用']);
         $states = [
             'on'  => ['value' => 0, 'text' => '启用', 'color' => 'primary'],

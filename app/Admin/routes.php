@@ -16,7 +16,7 @@ Route::group([
     $router->resource('fanclubs', fanclubCtl::class);
     $router->resource('obsoletes', obsoleteCtl::class);
     $router->resource('group-members', groupMemberCtl::class);
-
+    $router->resource('backgrounds', backgroundCtl::class);
     
     $router->get('songList', 'projectCtl@songList');
     $router->get('fanclubList', 'projectCtl@fanclubList');
