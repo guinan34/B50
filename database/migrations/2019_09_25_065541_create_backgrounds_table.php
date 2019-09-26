@@ -16,6 +16,7 @@ class CreateBackgroundsTable extends Migration
         Schema::create('backgrounds', function (Blueprint $table) {
             $table->increments('id');
             $table->string('img')->comment('图片地址');
+            $table->boolean('is_backgroud')->comment('1为设置为背景，只能有一个1');
             $table->timestamps();
         });
     }

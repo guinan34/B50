@@ -30,7 +30,11 @@ class backgroundCtl extends AdminController
         // $grid->column('img', __('图片'));
         $grid->column('img', __('图片'))->image('http://admin.zhengzai.tv/uploads',100,100);
         // $grid->column('created_at', __('Created at'));
-        
+        $states = [
+            'on'  => ['value' => 1, 'text' => '启用', 'color' => 'success'],
+            'off' => ['value' => 0, 'text' => '未启用', 'color' => 'danger'],
+        ];
+        $grid->column('is_backgroud','设为背景')->switch($states)->sortable();
         // $grid->column('updated_at', __('Updated at'));
 
         return $grid;
@@ -64,7 +68,11 @@ class backgroundCtl extends AdminController
         $form = new Form(new background);
 
         $form->image('img', __('图片'));
-
+        $states = [
+            'on'  => ['value' => 1, 'text' => '启用', 'color' => 'primary'],
+            'off' => ['value' => 0, 'text' => '未启用', 'color' => 'default'],
+        ];
+        $form->switch('is_backgroud','设为背景')->states($states);
         return $form;
     }
 }

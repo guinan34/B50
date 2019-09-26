@@ -7,6 +7,7 @@ use App\song;
 use App\project;
 use App\fanclub;
 use App\groupMember;
+use App\background;
 
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -79,21 +80,10 @@ class indexCtl extends Controller
     	return $data;
     }
 
-    public function filter()
+    public function backGroundsUrl()
     {
-    	$song=$request->input('song');
-        $member=$request->input('member');
-
-
-        $data = deviceListCtl::when(!empty($deviceBrand), function ($query) use ($deviceBrand) {
-                return $query->where('deviceBrand','like','%'.$deviceBrand.'%');
-            })
-            ->when(!empty($deviceId), function ($query) use ($deviceId) {
-                return $query->where('deviceId',$deviceId);
-            })
-            ->orderBy('created_at','asc')->paginate(20);
-
-        return $data;
+        $backGroundsUrl=background::select('img')->where('is_backgroud','1')->first();
+        return $backGroundsUrl;
     }
 
 }
