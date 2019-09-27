@@ -88,7 +88,7 @@ class indexCtl extends Controller
 
     public function songList()
     {
-        $songList=song::select('id','song')->get();
+        $songList=song::select('id','song','type')->get();
         return $songList;
         //print_r($songList);
     }
