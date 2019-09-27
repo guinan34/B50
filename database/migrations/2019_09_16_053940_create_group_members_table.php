@@ -18,6 +18,7 @@ class CreateGroupMembersTable extends Migration
             $table->string('member')->comment('成员名称');
             $table->string('theater')->comment('组合');
             $table->string('team')->comment('队伍');
+            $table->string('periods')->comment('期数');
             $table->timestamps();
         });
     }
