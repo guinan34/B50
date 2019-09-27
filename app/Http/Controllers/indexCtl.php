@@ -86,4 +86,18 @@ class indexCtl extends Controller
         return $backGroundsUrl;
     }
 
+    public function songList()
+    {
+        $songList=song::select('id','song')->get();
+        return $songList;
+        //print_r($songList);
+    }
+
+    public function memberList()
+    {
+        $memberList=groupMember::select('id','member')->get();
+        return $memberList;
+        //print_r($songList);
+    }
+
 }

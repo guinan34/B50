@@ -18,7 +18,9 @@ Route::get('/', function () {
 
 $router->get('indexList', 'indexCtl@indexList');
 $router->get('detailList', 'indexCtl@detailList');
-$router->get('backGroundsUrl', 'indexCtl@backGroundsUrl');
+$router->get('songList', 'indexCtl@songList');
+$router->get('memberList', 'indexCtl@memberList');
+
 
 
 
