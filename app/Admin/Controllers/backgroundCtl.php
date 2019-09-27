@@ -8,6 +8,9 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
+//require 'vendor/autoload.php';
+use Intervention\Image\ImageManager;
+
 class backgroundCtl extends AdminController
 {
     /**
@@ -67,7 +70,7 @@ class backgroundCtl extends AdminController
     {
         $form = new Form(new background);
 
-        $form->image('img', __('图片'));
+        $form->image('img', __('图片'))->thumbnail('small', $width = 300, $height = 300);
         $states = [
             'on'  => ['value' => 1, 'text' => '启用', 'color' => 'primary'],
             'off' => ['value' => 0, 'text' => '未启用', 'color' => 'default'],
