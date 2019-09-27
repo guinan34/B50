@@ -52,11 +52,11 @@ class indexCtl extends Controller
     {   
     	$project=project::select('song_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
     	$data=array();
-    	$total_amount=project::where('is_obsolete',0)->sum('amount');
-        $total_song=song::count();
+    	// $total_amount=project::where('is_obsolete',0)->sum('amount');
+     //    $total_song=song::count();
 
-        $data['total_amount']=$total_amount;
-        $data['total_song']=$total_song;
+     //    $data['total_amount']=$total_amount;
+     //    $data['total_song']=$total_song;
     	$a=-1;
 
         foreach ($project as $key => $value) {
@@ -72,7 +72,7 @@ class indexCtl extends Controller
         	$data['data'][$a]['project_name']=$project_name;
         	$data['data'][$a]['platform']=$platform;
         	$data['data'][$a]['amount']=$amount;
-        	$data['data'][$a]['fanclub']=$fanclub;
+        	$data['data'][$a]['fan_club']=$fanclub;
         	$data['data'][$a]['remark']=$remark;
 
         	// return $song;
