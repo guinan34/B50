@@ -47,6 +47,7 @@ class groupMemberCtl extends AdminController
             // 去掉查看
             $actions->disableView();
         });
+        $grid->column('periods','期数');
         return $grid;
     }
 
@@ -82,6 +83,7 @@ class groupMemberCtl extends AdminController
         $form->text('member', __('成员'));
         $form->select('theater','组合')->options(['BEJ48' => 'BEJ48', 'SNH48' => 'SNH48', 'GNZ48' => 'GNZ48']);
         $form->text('team', __('队伍'));
+        $form->text('periods','期数');
 
         return $form;
     }
