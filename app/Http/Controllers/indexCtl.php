@@ -21,7 +21,7 @@ class indexCtl extends Controller
     	$a=-1;
 
         $data=array();
-        $song=song::select('id','song','type','actress')->get();
+        $song=song::select('id','song','type','actress')->orderBy('type','asc')->get();
 
         foreach ($song as $key => $valueSong) {
         	$total_amount=project::where('is_obsolete',0)->sum('amount');
@@ -31,7 +31,7 @@ class indexCtl extends Controller
         	$amount=project::where('song_id',$valueSong['id'])->where('is_obsolete',0)->sum('amount');
 	        $data['total_amount']=$total_amount;
 	       	$data['total_song']=$total_song;
-        	$data['data'][$a]['id'] =$valueSong['id'];
+        	//$data['data'][$a]['id'] =$valueSong['id'];
 	        $data['data'][$a]['song'] =$valueSong['song'];
 	        $data['data'][$a]['type'] =$valueSong['type'];
 	        $data['data'][$a]['amount'] =$amount;
@@ -59,8 +59,8 @@ class indexCtl extends Controller
         //     $searchMemberId=groupMember::where('member',$searchMember)->value('id');
 
         $input=$Request->all();
-        
-        return $input;
+        $input['select_member']='测试拿到没有数据';
+        return $input['select_member'];
 
     	$project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
     	$data=array();
