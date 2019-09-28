@@ -113,7 +113,8 @@ class indexCtl extends Controller
         $a=-1;
         
         $song_list=song::select('id','song','type')->get();
-        $member_list=groupMember::orderBy('member','asc')->pluck('member');
+        // $member_list=groupMember::orderBy('member','desc')->pluck('member');
+        $member_list=groupMember::orderByRaw('convert(member using gbk)')->pluck('member');
 
         foreach ($song_list as $key => $value) {
             $a=$a+1;
