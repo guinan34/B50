@@ -51,29 +51,30 @@ class indexCtl extends Controller
     public function detailList(Request $Request)
     {   
         $input=$Request->all();
-        $inputtype=$input['select_type'];
-        $inputmember=$input['select_member'];
-        $inputsong=$input['select_song'];
 
-        if ($inputtype && $inputtype === 'song') {
-            // $searchSong=$Request->input('song');
+        if ($Request->filled('select_type') && $Request->input('select_type') === 'song') {
+
+            $inputsong = $input['select_song'];
             $searchSongId=song::where('song',$inputsong)->value('id');
             $project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->where('song_id',$searchSongId)->get();
 
-        }elseif ($inputtype && $inputtype === 'member') {
-            //$searchMember=$Request->input('member');
+        }elseif ($Request->filled('select_type') && $Request->input('select_type') === 'member') {
+            $inputmember = $input['select_member'];
             $searchMemberId=groupMember::where('member',$inputmember)->value('id');
+            //return $searchMemberId;
+            $memberBelongSongId=song::whereRaw("FIND_IN_SET($searchMemberId,actress)",true)->pluck('id');
+            // return $memberBelongSongId;
+            $project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->whereIn('song_id',$memberBelongSongId)->get();
+            // return $project;
 
+        }else{
+            //return $member;
+            $project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
         }
-        //return $member;
 
-    	$project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
+        
     	$data=array();
-    	// $total_amount=project::where('is_obsolete',0)->sum('amount');
-     //    $total_song=song::count();
 
-     //    $data['total_amount']=$total_amount;
-     //    $data['total_song']=$total_song;
     	$a=-1;
 
         foreach ($project as $key => $value) {

@@ -35,7 +35,7 @@ class projectCtl extends AdminController
         $grid->column('platform', __('平台'))->sortable();
         $grid->column('amount', __('金额'))->sortable();
         $grid->column('song.song', __('歌曲'))->sortable();
-        $grid->column('fanclub.fanclub', __('所属应援会'));
+        $grid->column('fanclub.fanclub', __('所属应援会'))->sortable();
         $grid->column('start_time',__('开始时间'))->sortable();
         $grid->column('end_time',__('结束时间'))->sortable();
         //$grid->column('is_obsolete',__('是否废弃'))->editable('select', [0 => '启用', 1 => '废弃'])->sortable();
@@ -48,7 +48,7 @@ class projectCtl extends AdminController
             'off' => ['value' => 1, 'text' => '废弃', 'color' => 'danger'],
         ];
         $grid->column('is_obsolete','项目状态')->switch($states)->sortable();
-        $grid->model()->orderBy('is_obsolete','asc');
+        $grid->model()->orderBy('created_at','asc');
         $grid->actions(function ($actions) {
             // // 去掉删除
             // $actions->disableDelete();
