@@ -93,14 +93,14 @@ class indexCtl extends Controller
         	$data[$a]['project_name']=$project_name;
 
             if ($platform==='Owhat') {
-                $project_ur='https://m.owhat.cn/shop/shopdetail.html?id='.$project_id;
-                $data[$a]['project_ur']=$project_ur;
+                $project_url='https://m.owhat.cn/shop/shopdetail.html?id='.$project_id;
+                $data[$a]['project_url']=$project_url;
             }elseif($platform==='摩点') {
-                $project_ur='https://zhongchou.modian.com/item/'.$project_id.'.html';
-                $data[$a]['project_ur']=$project_ur;
+                $project_url='https://zhongchou.modian.com/item/'.$project_id.'.html';
+                $data[$a]['project_url']=$project_url;
             }else{
-                $project_ur='#';
-                $data[$a]['project_ur']=$project_ur;
+                $project_url='#';
+                $data[$a]['project_url']=$project_url;
             }
 
         	$data[$a]['platform']=$platform;
