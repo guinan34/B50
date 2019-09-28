@@ -50,6 +50,17 @@ class indexCtl extends Controller
 
     public function detailList(Request $Request)
     {   
+        // if ($Request->has('song')) {
+        //     $searchSong=$Request->input('song');
+        //     $searchSongId=song::where('song',$searchSong)->value('id');
+        //     $project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->where('song_id',$searchSongId)->get();
+        // }elseif ($Request->has('member')) {
+        //     $searchMember=$Request->input('member');
+        //     $searchMemberId=groupMember::where('member',$searchMember)->value('id');
+
+        // 
+        return $Request->input('song');
+        
     	$project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
     	$data=array();
     	// $total_amount=project::where('is_obsolete',0)->sum('amount');
