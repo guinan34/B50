@@ -50,7 +50,7 @@ class indexCtl extends Controller
 
     public function detailList()
     {   
-    	$project=project::select('song_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
+    	$project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
     	$data=array();
     	// $total_amount=project::where('is_obsolete',0)->sum('amount');
      //    $total_song=song::count();
@@ -61,19 +61,34 @@ class indexCtl extends Controller
 
         foreach ($project as $key => $value) {
         	$a=$a+1;
+
         	$song=song::where('id',$value['song_id'])->value('song');
         	$fanclub=fanclub::where('id',$value['fanclub_id'])->value('fanclub');
         	$project_name=$value['project_name'];
         	$platform=$value['platform'];
         	$amount=$value['amount'];
         	$remark=$value['remark'];
+            $project_id=$value['project_id'];
 
-        	$data['data'][$a]['song']=$song;
-        	$data['data'][$a]['project_name']=$project_name;
-        	$data['data'][$a]['platform']=$platform;
-        	$data['data'][$a]['amount']=$amount;
-        	$data['data'][$a]['fan_club']=$fanclub;
-        	$data['data'][$a]['remark']=$remark;
+
+        	$data[$a]['song']=$song;
+        	$data[$a]['project_name']=$project_name;
+
+            if ($platform==='Owhat') {
+                $project_ur='https://m.owhat.cn/shop/shopdetail.html?id='.$project_id;
+                $data[$a]['project_ur']=$project_ur;
+            }elseif($platform==='摩点') {
+                $project_ur='https://zhongchou.modian.com/item/'.$project_id.'.html';
+                $data[$a]['project_ur']=$project_ur;
+            }else{
+                $project_ur='#';
+                $data[$a]['project_ur']=$project_ur;
+            }
+
+        	$data[$a]['platform']=$platform;
+        	$data[$a]['amount']=$amount;
+        	$data[$a]['fan_club']=$fanclub;
+        	$data[$a]['remark']=$remark;
 
         	// return $song;
         }
@@ -93,11 +108,6 @@ class indexCtl extends Controller
         //print_r($songList);
     }
 
-    public function memberList()
-    {
-        $memberList=groupMember::select('id','member')->get();
-        return $memberList;
-        //print_r($songList);
-    }
+
 
 }
