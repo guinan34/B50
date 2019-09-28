@@ -48,7 +48,7 @@ class indexCtl extends Controller
     }
 
 
-    public function detailList()
+    public function detailList(Request $Request)
     {   
     	$project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
     	$data=array();
@@ -101,11 +101,35 @@ class indexCtl extends Controller
         return $backGroundsUrl;
     }
 
-    public function songList()
+    public function detailSearch()
     {
-        $songList=song::select('id','song','type')->get();
-        return $songList;
-        //print_r($songList);
+
+        $data=array();
+        $total_amount=project::where('is_obsolete',0)->sum('amount');
+        $total_song=song::count();
+
+        $data['total_amount']=$total_amount;
+        $data['total_song']=$total_song;
+        $a=-1;
+        
+        $song_list=song::select('id','song','type')->get();
+        $member_list=groupMember::pluck('member');
+
+        foreach ($song_list as $key => $value) {
+            $a=$a+1;
+            $id=$value['id'];
+            $song=$value['song'];
+            $type=$value['type'];
+
+            $data['song_list'][$a]['id']=$id;
+            $data['song_list'][$a]['song']=$song;
+            $data['song_list'][$a]['type']=$type;
+
+        }
+
+        $data['member_list']=$member_list;
+
+        return $data;
     }
 
 
