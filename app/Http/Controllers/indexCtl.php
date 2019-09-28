@@ -59,8 +59,9 @@ class indexCtl extends Controller
         //     $searchMemberId=groupMember::where('member',$searchMember)->value('id');
 
         $input=$Request->all();
-        $input['select_member']='测试拿到没有数据';
-        return 'success';
+        $member=$input['select_member'];
+
+        return $member;
 
     	$project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
     	$data=array();
