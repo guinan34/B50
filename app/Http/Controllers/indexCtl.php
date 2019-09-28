@@ -50,18 +50,22 @@ class indexCtl extends Controller
 
     public function detailList(Request $Request)
     {   
-        // if ($Request->has('song')) {
-        //     $searchSong=$Request->input('song');
-        //     $searchSongId=song::where('song',$searchSong)->value('id');
-        //     $project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->where('song_id',$searchSongId)->get();
-        // }elseif ($Request->has('member')) {
-        //     $searchMember=$Request->input('member');
-        //     $searchMemberId=groupMember::where('member',$searchMember)->value('id');
-
         $input=$Request->all();
-        $member=$input['select_member'];
+        $inputtype=$input['select_type'];
+        $inputmember=$input['select_member'];
+        $inputsong=$input['select_song'];
 
-        return $member;
+        if ($inputtype && $inputtype === 'song') {
+            // $searchSong=$Request->input('song');
+            $searchSongId=song::where('song',$inputsong)->value('id');
+            $project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->where('song_id',$searchSongId)->get();
+
+        }elseif ($inputtype && $inputtype === 'member') {
+            //$searchMember=$Request->input('member');
+            $searchMemberId=groupMember::where('member',$inputmember)->value('id');
+
+        }
+        //return $member;
 
     	$project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
     	$data=array();
