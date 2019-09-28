@@ -58,9 +58,10 @@ class indexCtl extends Controller
         //     $searchMember=$Request->input('member');
         //     $searchMemberId=groupMember::where('member',$searchMember)->value('id');
 
-        // 
-        return $Request->input('song');
+        $input=$Request->all();
         
+        return $input;
+
     	$project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->get();
     	$data=array();
     	// $total_amount=project::where('is_obsolete',0)->sum('amount');
