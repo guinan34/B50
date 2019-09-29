@@ -57,6 +57,7 @@ class projectCtl extends AdminController
             // 去掉查看
             $actions->disableView();
         });
+        $grid->model()->where('is_obsolete',0);
 
         // $grid->column('created_at', __('Created at'));
         // $grid->column('updated_at', __('Updated at'));

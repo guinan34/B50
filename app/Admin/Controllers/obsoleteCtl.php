@@ -42,7 +42,11 @@ class obsoleteCtl extends AdminController
         // $grid->column('updated_at', __('Updated at'));
         $grid->disableCreation();
         $grid->disableActions();
-
+        $states = [
+            'on'  => ['value' => 0, 'text' => '启用', 'color' => 'success'],
+            'off' => ['value' => 1, 'text' => '废弃', 'color' => 'danger'],
+        ];
+        $grid->column('is_obsolete','项目状态')->switch($states)->sortable();
         $grid->actions(function ($actions) {
 
             // 去掉删除
@@ -88,15 +92,19 @@ class obsoleteCtl extends AdminController
     //  *
     //  * @return Form
     //  */
-    // protected function form()
-    // {
-    //     $form = new Form(new project);
+    protected function form()
+    {
+        $form = new Form(new project);
 
-    //     $form->number('project_id', __('项目ID'));
-    //     $form->text('project_name', __('项目名称'));
-    //     $form->text('platform', __('所属平台'));
-    //     $form->text('fanclub', __('应援会'));
-
-    //     return $form;
-    // }
+        // $form->number('project_id', __('项目ID'));
+        // $form->text('project_name', __('项目名称'));
+        // $form->text('platform', __('所属平台'));
+        // $form->text('fanclub', __('应援会'));
+        $states = [
+            'on'  => ['value' => 0, 'text' => '启用', 'color' => 'primary'],
+            'off' => ['value' => 1, 'text' => '废弃', 'color' => 'default'],
+        ];
+        $form->switch('is_obsolete','项目状态')->states($states);
+        return $form;
+    }
 }
