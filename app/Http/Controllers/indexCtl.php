@@ -151,7 +151,7 @@ class indexCtl extends Controller
         	$data[$a]['song']=$song;
         	$data[$a]['project_name']=$project_name;
 
-            if ($platform==='Owhat') {
+            if ($platform==='owhat') {
                 $project_url='https://m.owhat.cn/shop/shopdetail.html?id='.$project_id;
                 $data[$a]['project_url']=$project_url;
             }elseif($platform==='摩点') {
