@@ -8,6 +8,8 @@ use App\project;
 use App\fanclub;
 use App\groupMember;
 use App\background;
+use DB;
+
 
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -20,26 +22,82 @@ class indexCtl extends Controller
     {   
     	$a=-1;
 
+        $songdb=DB::select("SELECT *
+        FROM
+        (
+            SELECT F1.song, F1.actress, F1.type, SUM(F1.amount) AS amount
+            FROM
+            (
+                SELECT S.song, S.type, S.actress, P.project_name, P.amount
+                FROM 
+                (
+                    SELECT id, song, actress, type 
+                    FROM songs
+                    WHERE type = '队歌'
+                ) AS S
+                LEFT JOIN
+                (
+                    SELECT song_id, project_name, amount 
+                    FROM projects
+                    WHERE is_obsolete = 0
+                ) AS P ON S.id = P.song_id
+            ) AS F1
+            GROUP BY F1.song, F1.actress, F1.type
+            ORDER BY amount DESC
+        ) AS M1
+        UNION
+        SELECT *
+        FROM
+        (
+            SELECT F1.song, F1.actress, F1.type, SUM(F1.amount) AS amount
+            FROM
+            (
+                SELECT S.song, S.type, S.actress, P.project_name, P.amount
+                FROM 
+                (
+                    SELECT id, song, actress, type 
+                    FROM songs
+                    WHERE type = 'Unit' OR type = 'Solo'
+                ) AS S
+                LEFT JOIN
+                (
+                    SELECT song_id, project_name, amount 
+                    FROM projects
+                    WHERE is_obsolete = 0
+                ) AS P ON S.id = P.song_id
+            ) AS F1
+            GROUP BY F1.song, F1.actress, F1.type
+            ORDER BY amount DESC
+        ) AS M2");
+
+        //return var_dump($songdb);
+        $songdb=collect($songdb)->map(function($x){ return (array) $x; })->toArray();
+
         $data=array();
         $song=song::select('id','song','type','actress')->orderBy('type','asc')->get();
 
-        foreach ($song as $key => $valueSong) {
-        	$total_amount=project::where('is_obsolete',0)->sum('amount');
-        	$total_song=song::count();
+        $total_amount=project::where('is_obsolete',0)->sum('amount');
+        $total_song=song::count();
+
+        $data['total_amount']=$total_amount;
+        $data['total_song']=$total_song;
+
+        foreach ($songdb as $key => $valueSong) {
+            //return $songdb;
         	$a=$a+1;
         	//$amount='select song_id,sum(amount) from projects group by song_id';
-        	$amount=project::where('song_id',$valueSong['id'])->where('is_obsolete',0)->sum('amount');
-	        $data['total_amount']=$total_amount;
-	       	$data['total_song']=$total_song;
+        	//$amount=project::where('song_id',$valueSong['id'])->where('is_obsolete',0)->sum('amount');
         	//$data['data'][$a]['id'] =$valueSong['id'];
+            //return $key;
 	        $data['data'][$a]['song'] =$valueSong['song'];
 	        $data['data'][$a]['type'] =$valueSong['type'];
-	        $data['data'][$a]['amount'] =$amount;
+            $data['data'][$a]['amount'] =$valueSong['amount'];
+	        //$data['data'][$a]['amount'] =$amount;
 	        //$data[$a]['total_song']=;
-        	foreach ($valueSong['actress'] as $key => $value) {
-        		//print_r($value);
+            $actressId=explode(",",$valueSong['actress']);
+        	foreach ($actressId as $key => $value) {
+                //return $value;
         		$actressList=groupMember::select('member')->where('id',$value)->get()->toArray();
-
             	$data['data'][$a]['actress'][] =$actressList[0]['member'];
             }
         }
