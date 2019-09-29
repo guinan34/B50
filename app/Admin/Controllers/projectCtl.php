@@ -37,7 +37,7 @@ class projectCtl extends AdminController
         $href=
         $grid->column('id', __('ID'));
         $grid->column('project_id', __('项目ID'))->display(function () {
-            if ($this->platform === 'Owhat') {
+            if ($this->platform === 'Owhat' || $this->platform === 'owhat') {
                 return 'https://m.owhat.cn/shop/shopdetail.html?id='.$this->project_id;
             }elseif ($this->platform === '摩点') {
                 return 'https://zhongchou.modian.com/item/'.$this->project_id.'.html';
