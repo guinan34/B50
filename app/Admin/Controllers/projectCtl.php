@@ -26,14 +26,28 @@ class projectCtl extends AdminController
      * @return Grid
      */
 
-    
+    public function url()
+    {
+        return url($this->id);
+    }
+
     protected function grid()
     {
         $grid = new Grid(new project);
-
+        $href=
         $grid->column('id', __('ID'));
-        $grid->column('project_id', __('项目ID'));
-        $grid->column('project_name', __('项目名称'))->link('http://baidu.com');
+        $grid->column('project_id', __('项目ID'))->display(function () {
+            if ($this->platform === 'Owhat') {
+                return 'https://m.owhat.cn/shop/shopdetail.html?id='.$this->project_id;
+            }elseif ($this->platform === '摩点') {
+                return 'https://zhongchou.modian.com/item/'.$this->project_id.'.html';
+            }else{
+                return '#';
+            }
+        })->link();
+
+        $grid->column('project_name', __('项目名称'));
+
         $grid->column('platform', __('平台'))->sortable();
         $grid->column('amount', __('金额'))->sortable();
         $grid->column('song.song', __('歌曲'))->sortable();
