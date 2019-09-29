@@ -25,13 +25,15 @@ class projectCtl extends AdminController
      *
      * @return Grid
      */
+
+    
     protected function grid()
     {
         $grid = new Grid(new project);
 
         $grid->column('id', __('ID'));
         $grid->column('project_id', __('项目ID'));
-        $grid->column('project_name', __('项目名称'));
+        $grid->column('project_name', __('项目名称'))->link('http://baidu.com');
         $grid->column('platform', __('平台'))->sortable();
         $grid->column('amount', __('金额'))->sortable();
         $grid->column('song.song', __('歌曲'))->sortable();
