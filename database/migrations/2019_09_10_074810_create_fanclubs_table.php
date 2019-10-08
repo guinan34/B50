@@ -17,8 +17,8 @@ class CreateFanclubsTable extends Migration
             $table->increments('id');
             $table->string('fanclub')->comment('应援会');
             $table->string('member')->comment('成员');
-            $table->string('modian_id')->comment('摩点项目id');
-            $table->string('owhat_id')->comment('owhat项目id');
+            $table->string('modian_id')->nullable()->comment('摩点项目id');
+            $table->string('owhat_id')->nullable()->comment('owhat项目id');
             $table->boolean('active')->comment('0应援会废弃 1应援会启用');
             $table->timestamps();
         });
