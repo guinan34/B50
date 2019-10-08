@@ -34,7 +34,7 @@ class projectCtl extends AdminController
     protected function grid()
     {
         $grid = new Grid(new project);
-        $href=
+        // $href=
         $grid->column('id', __('ID'));
         $grid->column('project_id', __('项目ID'))->display(function () {
             if ($this->platform === 'Owhat' || $this->platform === 'owhat') {
@@ -64,7 +64,7 @@ class projectCtl extends AdminController
             'off' => ['value' => 1, 'text' => '废弃', 'color' => 'danger'],
         ];
         $grid->column('is_obsolete','项目状态')->switch($states)->sortable();
-        $grid->model()->orderBy('created_at','asc');
+        $grid->model()->orderBy('created_at','desc');
         $grid->actions(function ($actions) {
             // // 去掉删除
             // $actions->disableDelete();
