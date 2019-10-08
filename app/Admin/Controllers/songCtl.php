@@ -11,6 +11,8 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use DB;
+
 
 class songCtl extends AdminController
 {
@@ -33,9 +35,12 @@ class songCtl extends AdminController
         $grid->column('id', __('ID'));
         $grid->column('song', __('曲目'));
         $grid->column('type', __('类型'));
-        // $grid->column('actress', __('演员'));
+        // $grid->column('actress', __('演员'))->display(function($actress){
+        //     $data=groupMember::whereIn('id',$actress)->orderBy(\DB::raw('FIND_IN_SET(id, "' . implode(",", $actress) . '"' . ")"))->get();
+        //     return $data;
+        // });
         $grid->column('actress','演员')->display(function($actress){
-            $data=groupMember::whereIn('id',$actress)->get()->toArray();
+            $data=groupMember::whereIn('id',$actress)->orderBy(\DB::raw('FIND_IN_SET(id, "' . implode(",", $actress) . '"' . ")"))->get();
             $str="";
             for ($i=0;$i<count($data);$i++){
                 $item=$data[$i]['member'];
