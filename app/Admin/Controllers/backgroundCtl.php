@@ -34,7 +34,7 @@ class backgroundCtl extends AdminController
         $grid->column('img', __('图片'))->image('http://admin.zhengzai.tv/uploads',100,100);
         // $grid->column('created_at', __('Created at'));
         $grid->column('url','预览')->display(function () {
-            return 'http://admin.zhengzai.tv/uploads/'.$this->img;
+            return env('APP_URL').'/uploads/'.$this->img;
         })->link();
 
         $states = [
