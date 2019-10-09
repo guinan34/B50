@@ -63,7 +63,7 @@ class songCtl extends AdminController
             // 在这里添加字段过滤器
             $filter->like('song', '曲目');
             $filter->like('type','类型');
-            $filter->equal('actress','演员')->select(groupMember::pluck('member as text','id'));
+            $filter->like('actress','演员')->select(groupMember::pluck('member as text','id'));
         });
         // $grid->column('created_at', __('Created at'));
         // $grid->column('updated_at', __('Updated at'));
