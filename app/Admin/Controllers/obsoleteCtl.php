@@ -58,6 +58,17 @@ class obsoleteCtl extends AdminController
             // 去掉查看
             $actions->disableView();
         });
+
+        $grid->filter(function($filter){
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+            // 在这里添加字段过滤器
+            $filter->like('project_name', '项目名称');
+            $filter->like('platform','平台');
+            $filter->like('song.song','歌曲');
+            $filter->like('fanclub.fanclub','应援会');
+        });
+
         $grid->model()->where('is_obsolete',1);
 
         return $grid;

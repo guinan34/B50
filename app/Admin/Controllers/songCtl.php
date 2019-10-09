@@ -56,6 +56,15 @@ class songCtl extends AdminController
             // 去掉查看
             $actions->disableView();
         });
+
+        $grid->filter(function($filter){
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+            // 在这里添加字段过滤器
+            $filter->like('song', '曲目');
+            $filter->like('type','类型');
+            $filter->equal('actress','演员')->select(groupMember::pluck('member as text','id'));
+        });
         // $grid->column('created_at', __('Created at'));
         // $grid->column('updated_at', __('Updated at'));
         //$grid->model()->where('id',1);

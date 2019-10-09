@@ -37,6 +37,9 @@ class groupMemberCtl extends AdminController
             $filter->disableIdFilter();
             // 在这里添加字段过滤器
             $filter->like('theater', '所属组合');
+            $filter->like('member','成员');
+            $filter->like('team','队伍');
+            $filter->like('periods','期数');
         });
 
         $grid->actions(function ($actions) {
@@ -48,6 +51,9 @@ class groupMemberCtl extends AdminController
             $actions->disableView();
         });
         $grid->column('periods','期数');
+        //$grid->quickSearch('member','theater','team','periods');
+
+
         return $grid;
     }
 

@@ -47,8 +47,13 @@ class fanclubCtl extends AdminController
             'off' => ['value' => 0, 'text' => '废弃', 'color' => 'danger'],
         ];
         $grid->column('active','应援会状态')->switch($states)->sortable();
-        $grid->quickSearch('fanclub','member');
-
+        $grid->filter(function($filter){
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+            // 在这里添加字段过滤器
+            $filter->like('fanclub', '应援会');
+            $filter->like('member','成员');
+        });
         return $grid;
     }
 
