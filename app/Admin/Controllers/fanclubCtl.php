@@ -85,7 +85,7 @@ class fanclubCtl extends AdminController
     {
         $form = new Form(new fanclub);
 
-        $form->text('fanclub', __('应援会'))->rules('required|unique:fanclubs');
+        $form->text('fanclub', __('应援会'))->rules('required|unique:fanclubs,id');
         $form->text('modian_id', __('摩点id'));
         $form->text('owhat_id', __('owhat Id'));
         $form->text('member', __('成员'))->rules('required');
