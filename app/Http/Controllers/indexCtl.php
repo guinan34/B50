@@ -119,11 +119,13 @@ class indexCtl extends Controller
 
         }elseif ($Request->filled('select_type') && $Request->input('select_type') === 'member') {
             $inputmember = $input['select_member'];
-            $searchMemberId=groupMember::where('member',$inputmember)->value('id');
+            $fanclub_id = fanclub::where('member','like','%'.$inputmember.'%')->pluck('id');
+            //return $fanclub_id;
+            //$searchMemberId=groupMember::where('member',$inputmember)->value('id');
             //return $searchMemberId;
-            $memberBelongSongId=song::whereRaw("FIND_IN_SET($searchMemberId,actress)",true)->pluck('id');
+            //$memberBelongSongId=song::whereRaw("FIND_IN_SET($searchMemberId,actress)",true)->pluck('id');
             // return $memberBelongSongId;
-            $project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->whereIn('song_id',$memberBelongSongId)->get();
+            $project=project::select('song_id','project_id','project_name','platform','amount','fanclub_id','remark')->where('is_obsolete',0)->whereIn('fanclub_id',$fanclub_id)->get();
             // return $project;
 
         }else{
